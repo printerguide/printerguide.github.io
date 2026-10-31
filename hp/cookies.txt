@@ -1,0 +1,5 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+www.hprintercares.site	TRUE	/	FALSE	1999999999	__cf_bm	TXuN.MtIEEGFWVL8ocqBbYW7GCYm6gzuWvxuFpx6imE-1793383140.7982023-1.0.1.1-JpA9qdIoBfhjejRMUtDQJEtjiRiIpI5tNyaRdsOKhCOPTPWz.go4b8Kwaj13OtBkmigAV.Nw43VT_Dxv3_4wxGL6.rQ8A82wAfEHUTMNo59SB1yE_rLGraSxxSgi7Dc0
+www.hprintercares.site	TRUE	/	FALSE	1999999999	SameSite	None
+
