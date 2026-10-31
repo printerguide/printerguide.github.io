@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DailyTech Guides: free printer setup and troubleshooting</title>
+<meta name="description" content="Free, step-by-step guides to set up a printer, fix an offline printer, connect to Wi-Fi and clear paper jams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f6fa;--surface:#fff;--ink:#0e2233;--muted:#4b6074;--line:#d5e0ea;--brand:#1558d6;--brand-ink:#fff;--tip:#fff4d6;--tipink:#6b4a00;--ok:#0f8a5f;
+--h:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;--b:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1722;--surface:#122434;--ink:#e8f0f7;--muted:#9fb3c5;--line:#25405a;--brand:#6aa2ff;--brand-ink:#06182c;--tip:#3a2f10;--tipink:#ffd98a;--ok:#4cd9a0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1722;--surface:#122434;--ink:#e8f0f7;--muted:#9fb3c5;--line:#25405a;--brand:#6aa2ff;--brand-ink:#06182c;--tip:#3a2f10;--tipink:#ffd98a;--ok:#4cd9a0;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--b)}
+h1,h2,h3{font-family:var(--h);line-height:1.1;margin:0;letter-spacing:-.02em}
+a{color:var(--brand)}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.logo{font:800 20px var(--h);color:var(--ink);text-decoration:none}
+.logo i{font-style:normal;color:var(--brand)}
+nav{display:flex;gap:18px;align-items:center;font-size:15px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--ink)}
+.tbtn{background:none;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 10px;cursor:pointer;font:inherit;font-size:14px}
+@media(max-width:640px){nav a{display:none}}
+.hero{padding:56px 0 28px}
+.hero h1{font-size:clamp(36px,6vw,64px);max-width:15ch}
+.hero p{color:var(--muted);max-width:56ch;font-size:19px;margin:16px 0 0}
+.banner{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+.art{width:100%;max-width:420px;justify-self:center;height:auto}
+@media(max-width:820px){.banner{grid-template-columns:1fr}.art{max-width:320px}}
+.paper{animation:out 6s ease-in-out infinite}
+.sheet-in{animation:bob 3s ease-in-out infinite}
+.led{animation:blink 1.2s steps(2,start) infinite}
+.w1,.w2,.w3{opacity:.15;animation:wifi 2.4s ease-in-out infinite}
+.w2{animation-delay:.35s}.w3{animation-delay:.7s}
+.pbar{transform-origin:left center;animation:fill 6s ease-in-out infinite}
+.badge{transform-box:fill-box;transform-origin:center;animation:pop 6s ease-in-out infinite}
+@keyframes out{0%,6%{transform:translateY(0);opacity:1}55%,88%{transform:translateY(72px);opacity:1}96%{transform:translateY(72px);opacity:0}100%{transform:translateY(0);opacity:0}}
+@keyframes bob{50%{transform:translateY(-4px)}}
+@keyframes blink{50%{opacity:.25}}
+@keyframes wifi{0%,100%{opacity:.15}40%{opacity:1}}
+@keyframes fill{0%,6%{transform:scaleX(.05)}55%,90%{transform:scaleX(1)}100%{transform:scaleX(.05)}}
+@keyframes pop{0%,55%{transform:scale(0);opacity:0}65%{transform:scale(1.2);opacity:1}72%,88%{transform:scale(1);opacity:1}96%,100%{transform:scale(0);opacity:0}}
+.tool{margin-top:32px;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.tool-h{padding:18px 22px;border-bottom:1px solid var(--line);font:700 18px var(--h)}
+.picks{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-bottom:1px solid var(--line)}
+.picks button{all:unset;cursor:pointer;padding:16px 18px;border-right:1px solid var(--line);display:block}
+.picks button:last-child{border-right:0}
+.picks b{display:block;font:700 16px var(--h)}
+.picks span{font-size:14px;color:var(--muted);line-height:1.4;display:block;margin-top:2px}
+.picks button[aria-selected="true"]{background:var(--brand);color:var(--brand-ink)}
+.picks button[aria-selected="true"] span{color:inherit;opacity:.9}
+.picks button:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
+@media(max-width:760px){.picks{grid-template-columns:1fr 1fr}.picks button:nth-child(2){border-right:0}.picks button:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.panel{padding:22px}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar div{height:100%;width:0;background:var(--ok);transition:width .3s}
+.prog{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin:8px 0 14px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.steps label{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid var(--line);border-radius:10px;cursor:pointer}
+.steps input{margin-top:5px;width:18px;height:18px;accent-color:var(--ok);flex:none}
+.steps input:checked+span{color:var(--muted);text-decoration:line-through}
+.tip{margin-top:14px;background:var(--tip);color:var(--tipink);padding:12px 14px;border-radius:10px;font-size:15px}
+.done{display:none;margin-top:14px;padding:12px 14px;border:1px solid var(--ok);border-radius:10px;color:var(--ok);font-weight:600}
+.reset{margin-top:14px;background:none;border:0;color:var(--brand);cursor:pointer;font:inherit;padding:0;text-decoration:underline}
+section{padding:56px 0}
+section h2{font-size:clamp(28px,4vw,40px);margin-bottom:8px}
+.lead{color:var(--muted);max-width:60ch;margin:0 0 28px}
+.os{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.os button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:8px 16px;font:600 15px var(--b);cursor:pointer}
+.os button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.walk{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;counter-reset:s}
+.walk li{list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;counter-increment:s}
+.walk li:before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--brand);color:var(--brand-ink);font:700 15px var(--h);margin-bottom:10px}
+.walk{padding:0;margin:0}
+.walk b{font:700 17px var(--h);display:block;margin-bottom:4px}
+.walk span{font-size:15px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card h3{font-size:19px;margin-bottom:6px}.card p{margin:0;color:var(--muted);font-size:15.5px}
+.alt{background:var(--surface);border-block:1px solid var(--line)}
+.alt .card{background:var(--bg)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 18px;margin-bottom:10px}
+summary{cursor:pointer;padding:16px 0;font:700 17px var(--h);list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";color:var(--brand);font-size:22px;line-height:1}
+details[open] summary::after{content:"\2212"}
+details p{margin:0 0 16px;color:var(--muted)}
+.rules{display:grid;gap:10px;padding:0;margin:0;list-style:none;max-width:70ch}
+.rules li{padding-left:28px;position:relative}
+.rules li:before{content:"\2713";position:absolute;left:0;color:var(--ok);font-weight:700}
+footer{border-top:1px solid var(--line);padding:32px 0 40px;font-size:14px;color:var(--muted)}
+footer p{max-width:80ch;margin:0 0 10px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important;animation:none!important}.paper{transform:translateY(72px)}.badge{transform:scale(1);opacity:1}.w1,.w2,.w3{opacity:1}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<a class="logo" href="#top">DailyTech<i> Guides</i></a>
+<nav aria-label="Main"><a href="#setup">Add a printer</a><a href="#devices">By device</a><a href="#why">Why us</a><a href="#faq">FAQ</a><button class="tbtn" id="theme" aria-label="Toggle dark mode">Theme</button></nav>
+</div></header>
+
+<main id="top">
+<div class="wrap hero">
+<div class="banner">
+<div>
+<h1>Follow the steps. Fix your printer.</h1>
+<p>Free, plain-language guides for printer setup, Wi-Fi, offline errors and paper jams. Pick your problem and tick off each step as you go.</p>
+</div>
+<svg class="art" viewBox="0 0 360 310" role="img" aria-label="Animated printer printing a page while connected to Wi-Fi">
+<g fill="none" stroke="var(--brand)" stroke-width="7" stroke-linecap="round">
+<path class="w1" d="M283 62a22 22 0 0 1 32 0"/>
+<path class="w2" d="M272 48a38 38 0 0 1 54 0"/>
+<path class="w3" d="M261 34a54 54 0 0 1 76 0"/>
+</g>
+<circle cx="299" cy="76" r="5" fill="var(--brand)"/>
+<g class="sheet-in">
+<rect x="105" y="34" width="150" height="80" rx="6" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
+<rect x="122" y="50" width="80" height="6" rx="3" fill="var(--line)"/>
+<rect x="122" y="66" width="110" height="6" rx="3" fill="var(--line)"/>
+</g>
+<g class="paper">
+<rect x="92" y="118" width="176" height="110" rx="4" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
+<rect x="110" y="176" width="90" height="7" rx="3.5" fill="var(--brand)"/>
+<rect x="110" y="192" width="140" height="6" rx="3" fill="var(--line)"/>
+<rect x="110" y="206" width="120" height="6" rx="3" fill="var(--line)"/>
+</g>
+<rect x="40" y="98" width="280" height="112" rx="20" fill="var(--brand)"/>
+<rect x="40" y="98" width="280" height="30" rx="20" fill="#fff" opacity=".15"/>
+<rect x="72" y="192" width="216" height="10" rx="5" fill="#06182c" opacity=".55"/>
+<rect x="62" y="140" width="120" height="34" rx="8" fill="#06182c" opacity=".75"/>
+<rect x="72" y="153" width="100" height="8" rx="4" fill="#fff" opacity=".25"/>
+<rect class="pbar" x="72" y="153" width="100" height="8" rx="4" fill="#4cd9a0"/>
+<circle class="led" cx="236" cy="157" r="6" fill="#4cd9a0"/>
+<circle cx="262" cy="157" r="6" fill="#fff" opacity=".6"/>
+<g class="badge">
+<circle cx="300" cy="262" r="22" fill="var(--ok)"/>
+<path d="M289 262l8 8 15-16" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<ellipse cx="180" cy="298" rx="130" ry="6" fill="var(--ink)" opacity=".1"/>
+</svg>
+</div>
+
+<div class="tool" id="tool">
+<div class="tool-h">What is going wrong?</div>
+<div class="picks" role="tablist" aria-label="Choose your issue" id="picks"></div>
+<div class="panel" role="tabpanel" id="panel" aria-live="polite"></div>
+</div>
+</div>
+
+<section id="setup"><div class="wrap">
+<h2>Add a printer to Windows in four steps</h2>
+<p class="lead">Power the printer on and connect it to the same network as your PC (or plug in USB), then follow these steps.</p>
+<ol class="walk">
+<li><b>Open Printers &amp; scanners</b><span>Settings, then Bluetooth &amp; devices, then Printers &amp; scanners.</span></li>
+<li><b>Select Add device</b><span>Windows searches for nearby printers. Keep the printer on and close by.</span></li>
+<li><b>Pick your printer</b><span>Choose the entry that matches your model name from the list.</span></li>
+<li><b>Finish and test</b><span>Let Windows install the driver, then print a test page to confirm.</span></li>
+</ol>
+</div></section>
+
+<section class="alt" id="devices"><div class="wrap">
+<h2>Set up on any device</h2>
+<p class="lead">Choose your device to see the exact path.</p>
+<div class="os" role="tablist" aria-label="Device" id="os"></div>
+<div class="card" id="osbody" role="tabpanel" aria-live="polite"></div>
+</div></section>
+
+<section id="why"><div class="wrap">
+<h2>Built to actually help</h2>
+<p class="lead">Guides that stay useful long after the first print.</p>
+<div class="cols">
+<div class="card"><h3>Interactive checklists</h3><p>Tick steps as you complete them and watch your progress, so you never lose your place.</p></div>
+<div class="card"><h3>Every major platform</h3><p>Windows, Mac, Android and iPhone or iPad, each with its own exact menu path.</p></div>
+<div class="card"><h3>Plain language</h3><p>No jargon. Every step says what to click and what you should see next.</p></div>
+<div class="card"><h3>Always free</h3><p>No sign-up, no downloads, no payment. Read, follow, print.</p></div>
+<div class="card"><h3>Manufacturer-first drivers</h3><p>We always point you to your printer maker's own site for drivers, never a third party.</p></div>
+<div class="card"><h3>Kept current</h3><p>Guides are reviewed when Windows, macOS, Android or iOS change their settings menus.</p></div>
+</div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+<h2>Our promises</h2>
+<ul class="rules">
+<li>We never ask you to install software to fix a printer.</li>
+<li>We never ask for payment, remote access or your passwords.</li>
+<li>We are independent and not affiliated with HP, Canon, Epson, Brother or any other manufacturer.</li>
+<li>For warranty or official support, we send you to the manufacturer.</li>
+</ul>
+</div></section>
+
+<section id="faq"><div class="wrap">
+<h2>Frequently asked questions</h2><p class="lead">Quick answers before you start.</p>
+<details><summary>Do I need to pay for any of this?</summary><p>No. Every guide on DailyTech Guides is free to read and follow.</p></details>
+<details><summary>Why can't my printer see my Wi-Fi network?</summary><p>Many printers only support 2.4 GHz networks. Move the printer closer to the router, check the network band, and restart both devices.</p></details>
+<details><summary>Where should I download printer drivers?</summary><p>Only from the website of your printer's manufacturer. Search for your exact model number plus "drivers" and check the address belongs to the brand.</p></details>
+<details><summary>Is it safe to let someone remotely control my PC to fix a printer?</summary><p>Be very careful. Genuine printer setup rarely needs remote access. Never give remote access, card details or passwords to anyone who contacted you first.</p></details>
+<details><summary>What if these steps do not fix it?</summary><p>Contact your printer maker's official support with your model and serial number. They can also confirm warranty cover.</p></details>
+<details><summary>Which printer should I buy?</summary><p>For occasional printing, a compact inkjet is fine. For high volume, an ink-tank or laser printer usually costs less per page.</p></details>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+<p><b>DailyTech Guides</b> is an independent publisher of how-to content. We are not affiliated with, endorsed by, or an authorised representative of any printer manufacturer. All brand names and trademarks belong to their respective owners and are used for identification only.</p>
+<p>Guides are provided for general information. Menu names can vary by model and software version.</p>
+<p>&copy; 2026 DailyTech Guides</p>
+</div></footer>
+
+<script>
+const issues=[
+{k:'New printer setup',d:'Get a new printer ready to use.',t:'Most setups take 10 to 15 minutes.',s:[
+'Unbox the printer and remove all tape and protective film.',
+'Install the ink or toner cartridges.',
+'Load plain paper in the input tray and plug in the power cable.',
+'Power on and choose language and region on the printer screen.',
+'Let the printer run its alignment or cleaning cycle and print the test page.',
+'Connect by USB, Wi-Fi or Ethernet.',
+'Install the driver or app from your printer maker\u2019s own website.']},
+{k:'Fix offline printer',d:'Bring it back online.',t:'"Offline" usually means the computer can\u2019t reach the printer. It is often a quick fix.',s:[
+'Confirm the printer is on and shows no error lights.',
+'Check the USB cable or the printer\u2019s Wi-Fi status.',
+'Turn off the printer, router and computer, then turn them on in that order.',
+'Windows: open Printers & scanners, select the printer, open Print queue and make sure Use Printer Offline is not ticked.',
+'Cancel any stuck jobs in the print queue and try again.',
+'Select the printer and choose Set as default.',
+'Update or reinstall the driver from the manufacturer\u2019s website.',
+'Reconnect the printer to Wi-Fi if the network name or password changed.']},
+{k:'Connect to Wi-Fi',d:'Join your home network.',t:'If the printer isn\u2019t found, restart it and the router, and move it closer.',s:[
+'Make sure the router is on and your PC or phone is on the same network.',
+'On the printer panel, open Settings, then Network, Wireless or Wi-Fi Setup.',
+'Select your network name.',
+'Enter the password carefully. It is case-sensitive. Many printers support 2.4 GHz only.',
+'Wait for the Wi-Fi light to stop blinking and stay solid.',
+'On your computer, go to Printers & scanners and choose Add device.',
+'Print a test page to confirm the connection.']},
+{k:'Paper jam',d:'Clear it and stop repeats.',t:'Always pull paper in the direction of its normal path, slowly, to avoid tearing.',s:[
+'Turn the printer off and unplug it.',
+'Open all access doors and remove the tray.',
+'Gently pull out the jammed paper with both hands. Check for torn scraps.',
+'Look inside for small pieces and remove them.',
+'Fan the paper stack, remove any curled or damp sheets, and reload.',
+'Slide the paper guides snug against the stack.',
+'Close everything, plug in and print a test page.']}];
+const osd=[
+{n:'Windows',p:'Settings \u2192 Bluetooth & devices \u2192 Printers & scanners \u2192 Add device. Select your printer and wait for the driver to install.'},
+{n:'Mac',p:'System Settings \u2192 Printers & Scanners \u2192 Add Printer. Choose it from the list. macOS uses AirPrint automatically for most models.'},
+{n:'Android',p:'Settings \u2192 Connected devices \u2192 Connection preferences \u2192 Printing. Turn on the default print service or install your maker\u2019s app.'},
+{n:'iPhone / iPad',p:'Open any document, tap Share \u2192 Print \u2192 Select Printer. AirPrint printers on the same Wi-Fi appear automatically.'}];
+const $=s=>document.querySelector(s);
+let cur=0;const state=issues.map(()=>[]);
+function pick(i){cur=i;
+$('#picks').innerHTML=issues.map((x,j)=>`<button role="tab" aria-selected="${j===i}" data-i="${j}"><b>${x.k}</b><span>${x.d}</span></button>`).join('');
+const x=issues[i];
+$('#panel').innerHTML=`<div class="bar"><div id="fill"></div></div><div class="prog"><span id="cnt"></span><span>${x.s.length} steps</span></div>
+<ul class="steps">${x.s.map((s,j)=>`<li><label><input type="checkbox" data-j="${j}" ${state[i][j]?'checked':''}><span>${s}</span></label></li>`).join('')}</ul>
+<div class="tip"><b>Tip:</b> ${x.t}</div><div class="done" id="done">All steps complete. If it still isn\u2019t working, contact your printer maker\u2019s official support.</div>
+<button class="reset" id="reset">Reset checklist</button>`;
+upd()}
+function upd(){const n=state[cur].filter(Boolean).length,t=issues[cur].s.length;
+$('#fill').style.width=(n/t*100)+'%';$('#cnt').textContent=n+' of '+t+' done';
+$('#done').style.display=n===t?'block':'none'}
+$('#picks').addEventListener('click',e=>{const b=e.target.closest('button');if(b)pick(+b.dataset.i)});
+$('#panel').addEventListener('change',e=>{if(e.target.dataset.j!==undefined){state[cur][+e.target.dataset.j]=e.target.checked;upd()}});
+$('#panel').addEventListener('click',e=>{if(e.target.id==='reset'){state[cur]=[];pick(cur)}});
+function os(i){$('#os').innerHTML=osd.map((x,j)=>`<button role="tab" aria-selected="${j===i}" data-i="${j}">${x.n}</button>`).join('');
+$('#osbody').innerHTML=`<h3>${osd[i].n}</h3><p>${osd[i].p}</p>`}
+$('#os').addEventListener('click',e=>{const b=e.target.closest('button');if(b)os(+b.dataset.i)});
+$('#theme').addEventListener('click',()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dark?'light':'dark'});
+pick(0);os(0);
+</script>
+</body>
+</html>
